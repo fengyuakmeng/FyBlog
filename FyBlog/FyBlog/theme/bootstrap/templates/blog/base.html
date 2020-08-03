@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>{% block title %}首页{% endblock %}  FyBlog's 博客系统</title>
+    <link href="{% static 'css/bulma.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/user.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mdeditor.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href={% static 'css/prettify.css' %} /> <!-- 设置代码主题，此文件为默认主题，可以换成其他主题-->
+    <script src="{% static 'js/query.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/prettify.js' %}" type="text/javascript"></script>
+
+    <script src="{% static 'js/load.js' %}" type="text/javascript"></script>
+    {% block head %}
+
+    {% endblock %}
+</head>
+
+<body onload="prettyPrint()">
+    <div id="home">
+        {# 页头 #}
+        <div id="head">
+            <div class="level">
+                <div class="level_left">
+                    <div id="blog_title" style="display: none">
+                        <h1><a id="MainTitle" href="{% url 'index' %}">Geralt</a></h1>
+                        <h2>个人简介：https://github.com/fengyuakmeng | 不定时更新</h2>
+                    </div>
+                </div>
+            </div>
+            <div id="blog_category" >
+                <hr>
+                <nav class="level">
+                    <div class="level-left">
+                        <nav class="breadcrumb" aria-label="breadcrumbs" style="display: none">
+                            <ul>
+                                <li><a href="{% url 'index' %}"><span class="icon is-small"><i class="fa fa-home"></i></span>主页</a></li>
+                                {% for foo in category %}
+                                    {% if foo.is_nav == 1 %}
+                                        <li><a href="{% url 'category' foo.id %}">{{ foo.name }}</a></li>
+                                    {% endif %}
+
+                                {% endfor %}
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="level-right">
+                        <span>文章：{{ count }}</span>&nbsp;
+                        <span>评论：{{ comment }}</span>&nbsp;
+                        <span>访问量：0</span>&nbsp;
+                    </div>
+                </nav>
+                <hr/>
+            </div>
+        </div>
+        <div id="main">
+            <div class="Content">
+                {% block content %}{% endblock %}
+                <br>
+                {% block comment %}{% endblock %}
+{#            {% if page_obj %}#}
+{#                {% if page_obj.has_previous %}#}
+{#                    <a href="?page={{ page_boj.previous_page_number }}">上一页</a>#}
+{#                {% endif %}#}
+{#                Page {{ page_obj.number }} of {{ paginator.num_pages }}#}
+{#                {% if page_obj.has_next %}#}
+{#                    <a href="?page={{ page_boj.next_page_number }}">下一页</a>#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+            {% if page_obj %}
+            <nav class="pagination" role="navigation" aria-label="pagination">
+                {% if page_obj.has_previous %}
+                <a class="pagination-previous" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                {% if page_obj.has_next %}
+                <a class="pagination-next" href="?page={{ page_obj.next_page_number }}">Next page</a>
+                    {% endif %}
+                <ul class="pagination-list">
+                    {% for page in paginator.page_range %}
+                        {% if page_obj.number == page %}
+                            <li><a class="pagination-link active" aria-label="Goto page 1" href="?page={{ page }}">{{ page }}</a></li>
+                        {% else %}
+                            <li><a class="pagination-link" aria-label="Goto page 1" href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
+            </div>
+            <div class="Sidebar">
+                <div class="sidebar_card">
+                {% if request.session.is_login %}
+                     <div class="user_card">
+                        <img src="{{ avatars.url }}" class="round_icon"  alt="">
+                        <h1 class="user_meta nick"><a href="">{{ nick }}</a></h1>
+                        <p class="introduction">个性签名：{{ introduction }}</p>
+                        <div class="user_meta logout"><a href="{% url 'logout' %}">退出登录</a></div>
+                     </div>
+                {% endif %}
+                {% for sidebar in Sidebar %}
+                    {% if sidebar.status == 1 %}
+                        <div class="{{ sidebar.class_name }}">
+                        <h1>{{ sidebar.title }}</h1>
+                        {% load re_url %}
+                        <p>{% autoescape off  %}{{ sidebar.content | cut:request.path }}{% endautoescape %}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {# 页脚 #}
+        <div class="Footer">
+            <hr>
+            <div class="lice text-tint">
+                Copyright ©2019 风语
+            </div>
+            <div class="lice">
+                <span><a href="#">Fy's Blog&nbsp;|&nbsp;</a></span>
+                <span><a href="#">sitemap&nbsp;|&nbsp;</a></span>
+                <span><a href="#">rss</a></span>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>

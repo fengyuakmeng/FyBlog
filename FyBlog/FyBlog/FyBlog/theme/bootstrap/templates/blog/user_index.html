@@ -1,0 +1,70 @@
+{% extends 'blog/user_base.html' %}
+{% block title %}
+用户主页
+{% endblock %}
+{% block content %}
+    {% load re_url %}
+    <div class="tile is-8 is-parent">
+        <div class="tile box is-child">
+            {% for comment,post in comment %}
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image round_icon">
+                      <img src="{{ comment.comment_user.avatars.url }}">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <div class="comment_target_title">
+                            <h1><a href="{% url 'post_detail' comment.target.id %}">{{ comment.target.title }}</a></h1>
+                        </div>
+                        <div class="comment" style="font-size: 15px">{{ comment.comment_text }}</div>
+                        <div class="level">
+                            <div class="level-left">
+                                <div class="detail-meta">
+                                    <span class="icon is_small detail-meta-item-icon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </span>
+                                    <span class="detail-meta-item-time">{{ comment.created_time }}</span>
+                                    <span class="detail-meta-divider">|</span>
+                                    <span class="icon is_small detail-meta-item-icon">
+                                        <i class="fa fa-comment"></i>
+                                    </span>
+                                    <span class="detail-meta-item-text">{{ post.posts.all.count}}</span>
+                                    <span class="detail-meta-item-text">回复</span>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+
+             {% if page_obj %}
+            <nav class="pagination reset" role="navigation" aria-label="pagination">
+                {% if page_obj.has_previous %}
+                <a class="pagination-previous" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                {% if page_obj.has_next %}
+                <a class="pagination-next" href="?page={{ page_obj.next_page_number }}">Next page</a>
+                    {% endif %}
+                <ul class="pagination-list">
+                    {% for page in paginator.page_range %}
+                        {% if page_obj.number == page %}
+                            <li style="list-style:none;"><a class="pagination-link is-active" aria-label="Goto page 1" href="?page={{ page }}">{{ page }}</a></li>
+                        {% else %}
+                            <li style="list-style:none;"><a class="pagination-link" aria-label="Goto page 1" href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
+
+
+
+
+        </div>
+    </div>
+{% endblock %}
+

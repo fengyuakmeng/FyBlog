@@ -1,0 +1,106 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}
+    文章-{{ post.title }}
+{% endblock %}
+{% block head %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('pre').each(function () {
+                $(this).addClass("prettyprint").addClass("linenums")
+            })
+        })
+    </script>
+{% endblock %}
+{% block content %}
+
+    {% if post %}
+        <div class="post_block" id="post">
+            <div class="detail_title">
+                <h1 itemprop="name headline">{{ post.title }}</h1>
+            </div>
+            <div class="detail-meta">
+                <span class="detail_time">
+                    <span class="icon is_small detail-meta-item-icon">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </span>
+                    <span class="detail-meta-item-text">发表于</span>
+                    <span class="detail-meta-item-time"> {{ Created_time }}</span>
+                    <span class="detail-meta-divider">|</span>
+                    <span class="icon is_small detail-meta-item-icon">
+                       <i class="fa fa-calendar"></i>
+                    </span>
+                    <span class="detail-meta-item-text">更新于</span>
+                    <span class="detail-meta-item-time"> {{ Updated_time }}</span>
+                    <span class="detail-meta-divider">|</span>
+                </span>
+
+                <span class="detail_category">
+                    <span class="icon is_small detail-meta-item-icon">
+                        <i class="fa fa-folder" aria-hidden="true"></i>
+                    </span>
+                    <span class="detail-meta-item-text">分类于</span>
+                    <span class="detail-meta-item-category"><a href="{% url 'category' post.category.id %}">{{ post.category }}</a></span>
+                </span>
+            </div>
+            <div class="markdown-body editormd-preview-container">
+                {% autoescape off  %}{{ post.content_html }}{% endautoescape %}
+            </div>
+
+            <ul class="detail-copyright">
+                <li class="post-author">
+                    <strong>本文作者：</strong>
+                   {{ post.owner }}
+                </li>
+                <li class="post-copyright">
+                    <strong>版权声明：</strong>
+                    本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+                </li>
+            </ul>
+            <div class="detail_tag">
+                <span class="icon is_small detail-meta-item-icon">
+                    <i class="fa fa-tag"></i>
+                </span>
+                {% for tag in post.tag.all %}
+                <a href="{% url 'tag' %}?tag={{ tag.id }}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block comment %}
+    <div class="post_block" id="comment">
+
+    <article class="media">
+        <figure class="media-left">
+            <p class="round_icon">
+                <img src="{{ avatars.url }}">
+            </p>
+        </figure>
+    <div class="media-content">
+        <form method="post" action="#" >
+            {% csrf_token %}
+        <div class="field">
+            <div class="control" id="post">
+                    <input type="hidden" name="nick" value="{{ request.session.nick }}" id="nick">
+                    <input type="hidden" name="post_id" value="{{ post.id }}" id="post_id">
+                    <textarea class="textarea" placeholder="评论...." name="comment" id="textarea"></textarea>
+            </div>
+        </div>
+        </form>
+
+        <div class="field">
+            <p class="control">
+                <button id = "form_submit" class="button is-primary is-rounded">提交</button>
+            </p>
+        </div>
+    </div>
+    </article>
+    </div>
+
+    <script src="{% static 'js/user.js' %}" type="text/javascript"></script><br>
+
+{% endblock %}

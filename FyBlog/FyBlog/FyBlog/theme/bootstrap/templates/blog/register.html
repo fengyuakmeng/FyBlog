@@ -1,0 +1,28 @@
+{% extends 'blog/form.html' %}
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block head_title %}
+<h1>注册你的账号吧!</h1>
+{% endblock %} %}
+{% block post %}/login/register/{% endblock %}
+{% block form %}
+{% csrf_token %}
+{% for foo in form %}
+    <p>{{ foo.label }}</p>
+    {{ foo }}
+    {% if foo.errors %}
+        <div class="error_message">
+        {{ foo.errors }}
+        </div>
+    {% endif %}
+{% endfor %}
+{% endblock %}
+{% block type %}注册{% endblock %}
+{% block message %}
+ <article class="message is-{{ status }}">
+    <div class="message-body">
+        {% autoescape off  %}{{ message }}{% endautoescape %}
+    </div>
+</article>
+{% endblock %}

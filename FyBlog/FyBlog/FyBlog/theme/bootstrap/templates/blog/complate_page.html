@@ -1,0 +1,21 @@
+{% extends 'blog/base_forget_password.html' %}
+{% block fourth_step %}is-active{% endblock %}
+{% block content %}
+<div id="content_forget">
+    <article class="message is-success">
+        <div class="message-body">
+            <div class="level">
+               <div class="level-left">
+                    <div class="level-item">
+                        <i class="fa fa-envelope" style="font-size: 5em"></i>
+                    </div>
+                    <div class="level-item">
+                        <p>修改密码成功！请<a href="{% url 'login' %}?next=/blog/index/">登录</a>你的账号</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+{% endblock %}

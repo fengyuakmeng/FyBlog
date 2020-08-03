@@ -1,0 +1,19 @@
+{% extends 'blog/base_forget_password.html' %}
+{% block first_step %}is-active{% endblock %}
+{% block content %}
+    <form action="/login/forget_password/choose/" id="content_forget" method="POST">
+        {% csrf_token %}
+        {% for foo in form %}
+             <p>{{ foo.label }}</p>
+                {{ foo }}
+            {% if foo.errors %}
+                <div class="error_message">
+                    {{ foo.errors }}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+
+        <input class="button is-rounded" value="提交" type="submit" id="form_submit">
+    </form>
+{% endblock %}

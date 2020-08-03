@@ -1,0 +1,22 @@
+{% extends 'blog/user_base.html' %}
+{% block title %}
+修改用户资料
+{% endblock %}
+{% block content %}
+    <div class="tile is-parent is-4">
+        <div class="tile is-child box">
+            <form method="POST" action="{% url 'user_edit' user.id %}" enctype="multipart/form-data">
+                {% for foo in userform %}
+                <p>{{ foo.label }}
+                  {{ foo }}</p>
+                {% endfor %}
+                <input id = "form_submit" class="button is-primary is-rounded" onclick="alert('修改完成！')" type="submit" value="修改">
+            </form>
+        </div>
+    </div>
+    <div class="tile is-parent is-4">
+        <div class="box">
+
+        </div>
+    </div>
+{% endblock %}

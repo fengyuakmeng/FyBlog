@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+{% block title %}{% endblock %}
+
+{% block content %}
+    {% if not post %}
+        <div class="error_message"><h1>{{ fail_message }}</h1></div>
+    {% elif success_message %}
+
+        <div class="success_message"><h1>{{ success_message }}</h1></div>
+    {% endif %}
+{% for foo in post  %}
+
+<div class="content_card_{{ forloop.counter }} post_card">
+    <div class="post_title">
+        <h2><a href="{% url 'post_detail' foo.id%}">{{ foo.title }}</a></h2>
+        <div class="post_created_time">发布时间:{{ foo.created_time }}</div>
+    </div>
+    <div class="post_desc">
+        {% autoescape off  %}{{ foo.desc }}<a href="{% url 'post_detail' foo.id %}">[…]查看全部</a>{% endautoescape %}
+    </div>
+    <span class="post_tag">标签:
+        {% for tag in foo.tag.all  %}
+            <span><a href="{% url 'tag' %}?tag={{ tag.id }}">{{ tag.name }}</a></span>
+        {% endfor %}
+    </span>
+    <span class="post_catgory">
+        &ensp;分类:<a href="{% url 'category' foo.category.id %}">{{ foo.category.name }}</a>
+    </span>
+
+    <span class="post_updated_time">更新于:{{ foo.updated_time }}</span>
+
+</div>
+{% endfor %}
+{% endblock %}

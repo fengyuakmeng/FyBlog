@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+{% block title %}归档{% endblock %}
+{% block content %}
+
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+            <p class="title is-6">嗯.... 目前共计{{ post.count }}篇日志，继续努力。</p>
+        </div>
+    </div>
+</div>
+{% for foo in post %}
+<div class="timeline">
+    <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+            <div class="box">
+                <p class="heading">{{ foo.created_time |date:"Y m-d" }}</p>
+                <a style="color: #761c19;" href="{% url 'post_detail' foo.id %}">{{ foo.title }}</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'blog/base_forget_password.html' %}
+{% block second_step %}is-active{% endblock %}
+{% block content %}
+<form method="post" action="/login/forget_password/checking/">
+<div id="content_forget">
+    <div class="box">
+        <div class="box">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <i class="fa fa-envelope" style="font-size: 5em"></i>
+                    </div>
+                    <div class="level-item">
+                        <p>通过<strong>邮箱</strong>来找回你的密码</p>
+                        &nbsp&nbsp&nbsp&nbsp
+                    </div>
+                </div>
+                <div class="level-right">
+                    <input type="radio" name="choose" value="email" id="email">
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        <i class="fa fa-question-circle" style="font-size: 5em"></i>
+                    </div>
+                    <div class="level-item">
+                        <p>通过<strong>密保问题</strong>来找回你的密码</p>
+                    </div>
+                </div>
+                <div class="level-right">
+                    <input type="radio" name="choose" value="question" id="question">
+                </div>
+            </div>
+        </div>
+        <input id= "form_submit" type="submit" class="button is-rounded" value="提交">
+    </div>
+
+</div>
+</form>
+
+
+{% endblock %}

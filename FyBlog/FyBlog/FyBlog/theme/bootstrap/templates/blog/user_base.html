@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/bulma.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/user.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+</head>
+<body>
+    <section class="hero is-dark is-medium">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="{% url 'user_index' user.id %}">
+                            <p class="title">Fy's Blog</p>
+                        </a>
+                    </div>
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end" style="font-size: 15px">
+                            <a class="navbar-item is-active" href="{% url 'index' %}">Home</a>
+                            <a class="navbar-item">Examples</a>
+                            <a class="navbar-item">Documentation</a>
+                        </div>
+                        <span class="navbar-item">
+                            <a class="button is-Gradients" href="https://github.com/fengyuakmeng" target=_blank>
+                                <span class="icon">
+                                <i class="fa fa-github"></i>
+                                </span>
+                                <span>github</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <br>
+    <div class="content user_wrapper">
+    <div class="tile is-ancestor">
+        <div class="tile is-4 is-parent">
+            <article class="tile is-child box">
+            <div class="card">
+                <div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="{{ user.avatars.url }}">
+                </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <figure class="image is-48x48">
+                                <img src="{{ user.avatars.url }}">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <p class="title is-4">{{ user.nick }}</p>
+                            <p class="subtitle is-6">{{ sex }}&nbsp;&nbsp;&nbsp;生日：<time class="detail-meta-item-time">{{ user.birthday | date:"Y-m-d"  }}</time></p>
+                        </div>
+                    </div>
+                    <div class="content" style="font-size: 15px;">
+                        <p>个人简介：{{ user.introduction }}</p>
+                        <div class="level">
+                            <div class="level-left">
+                                用户注册时间：<time class="detail-meta-item-time">{{ user.created_time | date:"Y-m-d" }}</time>
+                            </div>
+                             {% if is_master %}
+                                 <div class="level-right">
+                                     <span><a href="{% url 'user_edit' user.id %}" class="edit">编辑资料</a></span>
+                                 </div>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </article>
+            </div>
+    {% block content %}{% endblock %}
+        </div>
+    </div>
+
+
+
+    <div class="Footer">
+        <hr style="border:1px solid #B58900">
+        <div class="lice text-tint">
+            Copyright ©2019 风语
+        </div>
+        <div class="lice">
+            <span><a href="{% url 'index' %}">Fy's Blog&nbsp;|&nbsp;</a></span>
+            <span><a href="{% url 'sitemap' %}">sitemap&nbsp;|&nbsp;</a></span>
+            <span><a href="{% url 'rss' %}">rss</a></span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'blog/form.html' %}
+{% block title %}
+登陆你的账号
+{% endblock %}
+{% block head_title %}
+<h1>登陆你的账号吧!</h1>
+{% endblock %}
+{% block post %}/login/{% endblock %}
+{% block form %}
+{% csrf_token %}
+    <input name="next" type="hidden" value="{{ next }}">
+{% for foo in form %}
+    {% if foo.label == "记住我" %}
+        <p>{{ foo }}&nbsp{{ foo.label }}</p>
+    {% else %}
+        <p>{{ foo.label }}</p>
+        {{ foo }}
+    {% endif %}
+    {% if foo.errors %}
+        <div class="error_message">
+            {{ foo.errors }}
+        </div>
+    {% endif %}
+{% endfor %}
+{% endblock %}
+{% block type %}登录{% endblock %}
+{% block other %}<a class="forget_password" href="{% url 'index' %}">忘记密码？</a>{% endblock %}

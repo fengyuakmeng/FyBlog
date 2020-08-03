@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bulma.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/user.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        {% if form %}
+        <form method="POST" action="{% block post %}{% endblock %}" >
+            <div class="head">
+                {% block head_title %}{% endblock %}
+            </div>
+
+            <div class="register_content">
+                {% block form %}{% endblock %}
+                <input id = "form_submit" class="button is-primary is-rounded" type="submit" value="{% block type %}{% endblock %}">{% block other %}
+                {% endblock %}
+            </div>
+        </form>
+        {% elif status %}
+            {% block message %}
+            {% endblock %}
+        {% endif %}
+    </div>
+
+
+</body>
+</html>

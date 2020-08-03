@@ -1,0 +1,74 @@
+{% extends 'blog/base_forget_password.html' %}
+{% block third_step %}is-active{% endblock %}
+{% block content %}
+    {% if value == "email" %}
+    <form action="/login/forget_password/complate/" id="content_forget" method="POST">
+        <input type="hidden" id="value" value="email" name="value">
+        <div class="message is-success">
+            <div class="message-body">
+                <p>邮件已经发到{{ email }},请查看验证码并填到下方输入框中进行验证!</p>
+            </div>
+        </div>
+        <div class="box">
+            {% for foo in codeform %}
+                <p>{{ foo.label }}</p>
+                {{ foo }}
+            {% if foo.errors %}
+            <div class="error_message">
+                {{ foo.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="box">
+            {% for foo in resetform %}
+                <p>{{ foo.label }}</p>
+                {{ foo }}
+            {% if foo.errors %}
+            <div class="error_message">
+                {{ foo.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        <input class="button is-rounded" value="提交" type="submit" id="form_submit">
+        </div>
+    </form>
+    {% endif %}
+    {% if value == "question" %}
+        <form action="/login/forget_password/complate/" id="content_forget" method="POST">
+            <input type="hidden" id="value" value="question" name="value">
+            <div class="box">
+                <div class="content">
+                <p>密保问题(选择其中一个回答)</p>
+                </div>
+                <div class="select is-primary">
+                    <select class="select" name="question" id="question">
+                        <option  value ="{{ value_question1 }}">{{ first }}</option>
+                        <option  value ="{{ value_question2 }}">{{ second }}</option>
+                    </select>
+                </div>
+                <br><br>
+                <input class="input is-rounded" name="answer" required id="answer">
+                {% if error_message %}
+                     <div class="error_message">
+                    {{ error_message}}
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="box">
+                {% for foo in resetform %}
+                <p>{{ foo.label }}</p>
+                {{ foo }}
+                {% if foo.errors %}
+                    <div class="error_message">
+                    {{ foo.errors }}
+                    </div>
+                {% endif %}
+                {% endfor %}
+            <input class="button is-rounded" value="提交" type="submit" id="form_submit">
+            </div>
+
+        </form>
+    {% endif %}
+{% endblock %}
