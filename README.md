@@ -15,7 +15,9 @@
  
 ### 1.1 安装第三方运行库
 
-    pip3 install -r requirement.txt    
+    pip3 install -r requirement.txt  
+    
+    
     
 #### pip官方库安装mysqlclient会报错，建议从[此处](https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient)下载对应的wheel文件安装
 
@@ -43,6 +45,6 @@
 ### 1.4 收集静态文件
 
     python manage.py collectstatic
-
+  
 
 
