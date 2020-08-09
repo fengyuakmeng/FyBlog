@@ -11,16 +11,20 @@
 
 4.侧边栏功能
 
-## 项目运行
+## 1.项目运行
  
-### 安装第三方运行库
+### 1.1 安装第三方运行库
 
-    pip3 install -r requirement.txt
+    pip3 install -r requirement.txt    
     
-### 创建数据库
+#### pip官方库安装mysqlclient会报错，建议从[此处](https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient)下载对应的wheel文件安装
+
+
+    
+### 1.2 创建数据库
     ALTER DATABASE fyblog DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci 
 
-### 配置数据库
+### 1.3 配置数据库
 
 在```settings.py```文件下
 
@@ -36,6 +40,9 @@
 }
 ```
 
-### 配置静态文件
+### 1.4 收集静态文件
+
+    python manage.py collectstatic
+
 
 
