@@ -21,10 +21,12 @@
     
 #### pip官方库安装mysqlclient会报错，建议从[此处](https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient)下载对应的wheel文件安装
 
+    pip3 install mysqlclient-1.4.6-cp36-cp36m-win32.whl
+
 
     
 ### 1.2 创建数据库
-    ALTER DATABASE fyblog DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci 
+    CREATE DATABASE fyblog DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci 
 
 ### 1.3 配置数据库
 
@@ -46,5 +48,7 @@
 
     python manage.py collectstatic
   
+
+### 1.5 数据库迁移
 
 
