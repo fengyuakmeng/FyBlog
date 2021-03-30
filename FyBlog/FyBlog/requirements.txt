@@ -43,7 +43,7 @@ pycparser==2.19
 pycryptodome==3.9.0
 pycryptodomex==3.8.2
 PyDispatcher==2.0.5
-Pygments==2.4.2
+Pygments==2.7.4
 PyHamcrest==1.9.0
 PyMySQL==0.9.3
 pyOpenSSL==19.0.0
