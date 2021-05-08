@@ -20,7 +20,7 @@ django-contrib-comments==1.9.1
 django-mdeditor==0.1.15
 django-redis==4.10.0
 dnspython==1.16.0
-eventlet==0.25.0
+eventlet==0.31.0
 greenlet==0.4.15
 hyperlink==19.0.0
 idna==2.8
